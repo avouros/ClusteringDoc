@@ -1,0 +1,23 @@
+## latex/pdflatex auxiliary files:
+*.out
+*.toc
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.fmt
+*.fot
+*.cb
+*.cb2
+
+## build auxiliary files:
+*.synctex.gz
+*.synctex.gz(busy)
+*.synctex
+*.synctex(busy)
+
+## bib auxiliary files:
+*.bcf
+*.blg
+*.bbl

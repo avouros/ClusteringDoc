@@ -1,0 +1,509 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype} %improve general appearance
+
+% Document style
+\usepackage[
+a4paper,
+width=150mm,
+top=25mm,
+bottom=25mm,
+bindingoffset=6mm
+]{geometry}
+
+% Headers and footers:
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\fancyhead{}
+%\fancyhead[RO,LE]{\slshape\nouppercase{\rightmark}}%{ML and data analysis for BehNeuro}%
+%\fancyfoot{}
+%\fancyfoot[LE,RO]{\thepage}
+%\fancyfoot[LO,CE]{Chapter \thechapter}
+%\fancyfoot[CO,RE]{Avgoustinos Vouros}
+%\renewcommand{\headrulewidth}{0.4pt} %line thickness: head
+%\renewcommand{\footrulewidth}{0.4pt} %line thickness: foot
+
+% Graphics
+\usepackage{graphicx,soul}
+\usepackage[dvipsnames,table]{xcolor} %highlight text
+\graphicspath{ {images/} } %folder under which the graphics are
+\usepackage[labelfont=bf,font=footnotesize]{caption}
+\usepackage{subcaption}
+\usepackage[most]{tcolorbox} %coloured and framed text boxes
+\addtolength{\belowcaptionskip}{-5pt}
+
+% References
+\usepackage[square,authoryear,sort]{natbib}
+\bibliographystyle{agsm}    %Harvard style
+\renewcommand\cite{\citep}  %\cite = \citep
+
+% Referencing commands
+\usepackage[]{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue,
+	bookmarksnumbered=true,     
+	bookmarksopen=true,         
+	bookmarksopenlevel=1,       
+	colorlinks=true,            
+	pdfstartview=Fit,           
+	pdfpagemode=UseOutlines,
+	pdfpagelayout=TwoPageRight
+}
+
+% Table of Contents
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+\usepackage[titletoc]{appendix}
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+
+% Chapter
+%\usepackage{titlesec}
+%\titleformat{\chapter}{\normalfont\huge}{\huge{\bf{Chapter %\thechapter:}}}{20pt}{\huge\bf}
+
+% Dummy
+\usepackage{lipsum} %text
+
+% Empty page
+%\usepackage{afterpage}
+%\newcommand\blankpage{%
+%	\null
+%	\thispagestyle{empty}%
+	%\addtocounter{page}{-1}%
+%	\newpage
+%}
+
+% Tables
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{tabu}
+\usepackage{array}
+%\usepackage{booktabs}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+% Maths symbols and fonts
+\usepackage{mathtools,amsmath,amsfonts,amssymb,amsthm,bbm,mathbbol}
+% Algorithms
+\usepackage[ruled,vlined]{algorithm2e}
+% Caligraphic characters
+\usepackage{calrsfs}
+% Subindexes
+\usepackage{stackengine}
+
+% Containers and other
+\usepackage{float} %containers that cannot be broken
+%\usepackage{enumitem} %list environments
+\usepackage[shortlabels]{enumitem}
+\usepackage{pdfpages} %attach PDF documents
+\usepackage{indentfirst} %indent the firsts paragraphs
+
+% Extra configs
+%...
+\usepackage{setspace}
+
+%\newenvironment{changemargins}{
+%	\newgeometry{right=5mm, left=5mm}
+%j}
+
+% Extra commands
+\newcommand\tab[1][1cm]{\hspace*{#1}}  %the \tab command
+\usepackage{cancel} %the \cancel{math} command
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert} %the \abs{math} command
+%list of special caligraphic characters
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\CA}{\pazocal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\CB}{\pazocal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\CC}{\pazocal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\CD}{\pazocal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\CE}{\pazocal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\CF}{\pazocal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\CG}{\pazocal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\CH}{\pazocal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\CI}{\pazocal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\CJ}{\pazocal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\CK}{\pazocal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\CL}{\pazocal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\CM}{\pazocal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\CN}{\pazocal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\CO}{\pazocal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\CP}{\pazocal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\CQ}{\pazocal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\CR}{\pazocal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\CS}{\pazocal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\CT}{\pazocal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\CU}{\pazocal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\CV}{\pazocal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\CW}{\pazocal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\CX}{\pazocal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\CY}{\pazocal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\CZ}{\pazocal{Z}}
+
+
+
+\begin{document}
+	
+\section{Notations}
+
+\noindent Unless specified otherwise inside the text,
+\begin{itemize}
+	\item The vector notation $x_{i:} = [x_{i1}, x_{i2}, \dots, x_{ip}]$ specifies the i-th element of the matrix containing the data set $\CX$ consisting of $n$ observations and $p$ dimensions (or features or data attributes). $j$ is an index on the $p$ dimensions.
+	\item Given $K$ number of groups (clusters) $\CC = \{c_1, c_2, \dots, c_K \}$, with $n_1, n_2, \dots, n_K$ number of elements in each group respectively ($n$ without an index will refer to the number of elements of the whole data set), the vector notation $m_{k:} = [m_{k1}, m_{k2}, \dots, m_{kp}]$ specifies the k-th group center (centroid). This group center is the mean of the data in the group
+	\item The notation $\mu_{1:}$ refers to the global center of the data set, which is unique, and $\mu_{1:} = [\mu_{11}, \mu_{12}, \dots, \mu_{1p}]$.
+	\item Given $\mathsf{K}$ class labels $\ell$ 	then $n_{\ell}$
+	are the number of elements belonging to each class and $n_{\ell}^{(k)}$ is the number of elements of class $\ell$ belonging to cluster $k$.
+	\item The letters $w$ and $a$ are reserved to specify the weights of each dimension, i.e. $w_{1}, w_{2}, \dots, w_{p}$ and $a_{1}, a_{2}, \dots, a_{p}$.
+	\item The stylized letter $\mathbb{k}$ is used to indicate the $\mathbb{k}$-fold cross validation.
+	\item The notation, 
+	\begin{align}\nonumber
+	\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k}x_{i:} = \sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \sum_{j=1}^{p} x_{ij}
+	\end{align}
+	specifies a summation of all the $p$-dimensional data points $x_{i:}$, $i = 1 \dots n_k$ which belong to the k-th group ($x_{i:} \in c_k$). 
+	\item 
+	\begin{itemize}
+		\item WCSS = Within Clusters Sum of Squares.
+		\item BCSS = Between Clusters Sum of Squares. 
+	\end{itemize}	
+\end{itemize}
+
+\cleardoublepage
+
+\section{K-Means}
+
+\noindent \textbf{Objective function: Minimize WCSS \cite{jain2010data}.}
+\begin{align}\label{kmeans1}
+\CJ_{kmeans} &= \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \sum_{j=1}^{p} (x_{ij}-m_{kj})^2	
+\end{align}	
+
+\noindent \textbf{Objective function: Maximize BCSS \cite{witten2010framework}.}
+\begin{align}\label{kmeans2}
+\CJ_{BCSS} &= \sum_{i=1}^{n}\sum_{j=1}^{p}(x_{ij}-{\mu}_{1j})^2 - \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k}\sum_{j=1}^{p}(x_{ij}-m_{kj})^2	
+\end{align}	
+
+\noindent \textbf{Equivalent formulas \cite{witten2010framework}.}
+
+\begin{align}\label{prrof1a}
+WCSS = 
+\sum_{k=1}^{K} \sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \sum_{j=1}^{p} (x_{ij}-m_{kj})^2	
+= \sum_{k=1}^{K} \frac{1}{2n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \sum_{\binom{i'=1}{x_{i':} \in c_k}}^{n_k} \sum_{j=1}^{p} (x_{ij}-x_{i'j})^2
+\end{align}	
+
+\noindent \textbf{Minimization of Eq. (\ref{kmeans1}) leads to cluster centroids.}
+
+\begin{align}
+\frac{\partial \CJ_{kmeans}}{\partial m_{k'j'}} = 0 \Rightarrow 
+&\frac{\partial}{\partial m_{k'j'}} \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \sum_{j=1}^{p} (x_{ij}-m_{kj})^2 = 0 \Rightarrow 
+&m_{k'j'} = \frac{1}{n_{k'}}\sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}} x_{ij'}
+\end{align}
+
+\noindent\textbf{K-Means algorithms.}
+\begin{itemize}
+	\item Lloyd's K-Means \cite{lloyd1982least, jain2010data}
+	\item MacQueen K-Means \cite{macqueen1967some}
+	\item Hartiga-Wong K-Means \cite{hartigan1979algorithm,slonim2013hartigan}
+\end{itemize}
+
+
+
+
+
+\clearpage
+
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{Lloyd's K-Means algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
+			
+			\item Assign each data point to cluster $c_{k^*}$ so that,
+			\begin{align}\nonumber
+			k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+			\end{align}	
+			
+			\item Recompute the cluster centroids,
+			\begin{align}\nonumber
+			m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
+			\end{align}	
+			
+			\item Go to step 2 until converge.						
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{Lloyd's K-Means algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids using some initialisation method. 
+			
+			\item Assign each data point to its nearest centroid. 
+			
+			\item Recompute the cluster centroids by taking the mean of the data point belonging to them.
+			
+			\item Go to step 2 until converge.						
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\cleardoublepage
+
+
+\begin{center}
+	\setlength\abovedisplayskip{0pt}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{Hartigan-Wong's K-Means algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
+			
+			\item Assign each data point to cluster $k'$ so that,
+			\begin{align}\nonumber
+			k' &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+			\end{align}	
+			
+			\item Recompute the cluster centroids,
+			\begin{align}\nonumber
+				m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
+			\end{align}	
+			
+			\item Set an indicator $s=0$.		
+			
+			\item For each data point $x_{i:}$:
+			
+			\begin{enumerate}
+				\item Remove it from its cluster $c_{k'}$ and compute $WCSS_{k'}$. Set $ WCSS_{min} = WCSS_{k'}$.
+				\item For each cluster $c_{t} \neq c_{k'}$, $t = 1,\cdots, K$
+				\begin{enumerate}
+					\item Assign it to $c_{t}$ and compute $WCSS_{t}$
+					\item If $WCSS_{t} < WCSS_{min}$, $WCSS_{min}=WCSS_{t}$ and assign $x_{i:}$ to cluster $c_{t}$.
+				\end{enumerate}
+				\item If $WCSS_{min} \neq WCSS_{k'}$, set $s=1$ and update $m_{k':}$ and $m_{min:}$. Else $WCSS_{min} = WCSS_{k'}$ assign $x_{i:}$ to its original cluster $c_{k'}$. 
+			\end{enumerate}	
+			
+			\item If $s=1$, set $s=0$ and go to step 5 else terminate
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{Hartigan-Wong's K-Means algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids using some initialisation method. 
+			
+			\item Assign each data point to its nearest centroid. 
+			
+			\item Recompute the cluster centroids by taking the mean of the data point belonging to them.
+			
+			\item For each data point $x_{i:}$:
+			
+			\begin{enumerate}
+				\item Remove it from its cluster and compute the WCSS of that cluster.
+				\item Compute the WCSS of each other cluster if $x_{i:}$ was assigned them.
+				\item Assign $x_{i:}$ to the cluster with the minimum WCSS.
+				\item Update the old and the new cluster centroids of $x_{i:}$.
+			\end{enumerate}
+			
+			\item If no data points were changed clusters terminate else go to step 4.
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\cleardoublepage
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{MacQueen's K-Means algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
+			
+			\item Assign each data point to cluster $c_{k^*}$ so that,
+			\begin{align}\nonumber
+			k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+			\end{align}	
+			
+			\item Recompute the cluster centroids,
+			\begin{align}\nonumber
+			m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
+			\end{align}	
+			
+			\item Set an indicator $s=0$.
+			
+			\item For each data point $x_{i:}$:
+			
+			\begin{enumerate}
+				\item Assign it from cluster $c_{k'}$ to cluster $c_{k^*}$ so that,
+				\begin{align}\nonumber
+					k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+				\end{align}	
+				\item If $c_{k'} \neq c_{k^*}$ update $m_{k':}$ and $m_{*:}$ and set $s=1$.
+			\end{enumerate}
+			
+			\item If $s=1$, set $s=0$ and go to step 5 else terminate					
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{MacQueen's K-Means algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids using some initialisation method. 
+			
+			\item Assign each data point to its nearest centroid. 
+			
+			\item Recompute the cluster centroids by taking the mean of the data point belonging to them.
+			
+			\item For each data point $x_{i:}$:
+			
+			\begin{enumerate}
+				\item Assign it to its nearest centroid.
+				\item Update the old and the new cluster centroids of $x_{i:}$.
+			\end{enumerate}
+			
+			\item If no data points were changed clusters terminate else go to step 4.
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\cleardoublepage
+
+
+\section{K-Medians}
+
+\noindent \textbf{Objective function \cite{aggarwal2014data}.}
+
+\begin{align}\label{kmed1}
+\CJ_{kmedians} = \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \sum_{j=1}^{p} \abs{x_{ij}-m_{kj}}
+\end{align}	
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{K-Medians algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
+			
+			\item Assign each data point to cluster $k^*$ so that,
+			\begin{align}\nonumber
+			k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+			\end{align}	
+			
+			\item Recompute the cluster centroids by taking the median on each dimension of the data points assigned to them.
+			
+			\item Go to step 2 until converge.		
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{K-Medians algorithm}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids using some initialisation method. 
+			
+			\item Assign each data point to its nearest centroid. 
+			
+			\item Recompute the cluster centroids by taking the median of the data point belonging to them.
+			
+			\item Go to step 2 until converge.						
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}
+	
+\cleardoublepage	
+	
+
+\section{Geometric K-Medians clustering}
+
+\noindent \textbf{Objective function \cite{whelan2015understanding}.}
+\begin{align}\label{kmed2}
+\CJ_{gkmedians} = \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \bigg{|}\sum_{j=1}^{p}(x_{ij}-m_{kj})\bigg{|}
+\end{align}	
+
+\noindent \textbf{Cluster centroids.}	
+\begin{align}\label{kmed2obj}
+\frac{\partial \CJ_{gkmedians}}{\partial m_{k'j'}} = \frac{\partial}{\partial m_{k'j'}} \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \bigg{|}\sum_{j=1}^{p}(x_{ij}-m_{kj})\bigg{|} = 0 
+\Rightarrow
+m_{k'j'} = \frac{\sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}} \frac{x_{ij'}}{\sqrt{(x_{ij'}-m_{k'j'})^2}}}{\sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}}\frac{1}{\sqrt{(x_{ij'}-m_{k'j'})^2}}}
+\end{align}	
+	
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{Weiszfeld's algorithm}\label{algoweis}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
+			
+			\item Assign each data point to cluster $k^*$ so that,
+			\begin{align}\nonumber
+			k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+			\end{align}		
+			
+			\item Recompute the cluster centroids using the Weiszfeld's algorithm,
+			
+			\begin{enumerate}
+				\item For each cluster $k$ and dimension $j$:
+				\item Initialise the $k$-th centroid,
+				\begin{align}\nonumber
+				m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
+				\end{align}	
+				\item Update the centroid estimation, $m_{kj}^{(l)} = \frac{\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \frac{x_{ij}}{
+						\sqrt{		\sum_{j=1}^{p}
+							(x_{ij}-m_{kj}^{(l)})^2}}}{\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k}\frac{1}{
+						\sqrt{		\sum_{j=1}^{p}
+							(x_{ij}-m_{kj}^{(l)})^2}}}$, $l = 1, \dots, n_k$
+			\end{enumerate}			
+			
+			\item Go to step 2 until converge.	
+			
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and element assignments).
+	\end{tcolorbox}
+\end{center}	
+	
+
+\cleardoublepage	
+\bibliography{references}	
+\end{document}
+
