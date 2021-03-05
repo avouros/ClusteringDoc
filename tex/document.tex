@@ -226,7 +226,7 @@ WCSS =
 \begin{itemize}
 	\item Lloyd's K-Means \cite{lloyd1982least, jain2010data}
 	\item MacQueen K-Means \cite{macqueen1967some}
-	\item Hartiga-Wong K-Means \cite{hartigan1979algorithm,slonim2013hartigan}
+	\item Hartigan-Wong K-Means \cite{hartigan1979algorithm,slonim2013hartigan}
 \end{itemize}
 
 
@@ -267,7 +267,7 @@ WCSS =
 			
 			\item Assign each data point to its nearest centroid. 
 			
-			\item Recompute the cluster centroids by taking the mean of the data point belonging to them.
+			\item Recompute the cluster centroids by taking the mean of the data points belonging to each cluster.
 			
 			\item Go to step 2 until converge.						
 			
@@ -325,7 +325,7 @@ WCSS =
 			
 			\item Assign each data point to its nearest centroid. 
 			
-			\item Recompute the cluster centroids by taking the mean of the data point belonging to them.
+			\item Recompute the cluster centroids by taking the mean of the data points belonging to each cluster.
 			
 			\item For each data point $x_{i:}$:
 			
@@ -388,7 +388,7 @@ WCSS =
 			
 			\item Assign each data point to its nearest centroid. 
 			
-			\item Recompute the cluster centroids by taking the mean of the data point belonging to them.
+			\item Recompute the cluster centroids by taking the mean of the data points belonging to each cluster.
 			
 			\item For each data point $x_{i:}$:
 			
@@ -426,7 +426,14 @@ WCSS =
 			k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
 			\end{align}	
 			
-			\item Recompute the cluster centroids by taking the median on each dimension of the data points assigned to them.
+			\item Recompute the cluster centroids,
+			\begin{align}\nonumber
+				m_{kj} = 
+				\left\{\begin{matrix}
+				x_{ij} &, & i = (n_{k}+1)/2 &\\ 
+				(x_{ij} + x_{i'j})/2 &, & i = n_{k}/2 ,& i' = (n_{k}+1)/2
+				\end{matrix}\right.
+			\end{align}	
 			
 			\item Go to step 2 until converge.		
 			
@@ -443,7 +450,7 @@ WCSS =
 			
 			\item Assign each data point to its nearest centroid. 
 			
-			\item Recompute the cluster centroids by taking the median of the data point belonging to them.
+			\item Recompute the cluster centroids by taking the median of the data points belonging to each cluster.
 			
 			\item Go to step 2 until converge.						
 			
@@ -455,7 +462,7 @@ WCSS =
 \cleardoublepage	
 	
 
-\section{Geometric K-Medians clustering}
+\section{Geometric K-Medians}
 
 \noindent \textbf{Objective function \cite{whelan2015understanding}.}
 \begin{align}\label{kmed2}
@@ -480,7 +487,7 @@ m_{k'j'} = \frac{\sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}} \frac{x_{ij'}}{\
 			k^* &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
 			\end{align}		
 			
-			\item Recompute the cluster centroids using the Weiszfeld's algorithm,
+			\item Recompute the cluster centroids using the Weiszfeld's formula,
 			
 			\begin{enumerate}
 				\item For each cluster $k$ and dimension $j$:
@@ -492,7 +499,7 @@ m_{k'j'} = \frac{\sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}} \frac{x_{ij'}}{\
 						\sqrt{		\sum_{j=1}^{p}
 							(x_{ij}-m_{kj}^{(l)})^2}}}{\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k}\frac{1}{
 						\sqrt{		\sum_{j=1}^{p}
-							(x_{ij}-m_{kj}^{(l)})^2}}}$, $l = 1, \dots, n_k$
+							(x_{ij}-m_{kj}^{(l)})^2}}}$, \\$l = 1, \dots, n_k$
 			\end{enumerate}			
 			
 			\item Go to step 2 until converge.	
@@ -501,9 +508,88 @@ m_{k'j'} = \frac{\sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}} \frac{x_{ij'}}{\
 		The algorithm returns the final clusters (centroids and element assignments).
 	\end{tcolorbox}
 \end{center}	
+
+
+\cleardoublepage
+
+
+\section{Sparse K-Means}
+
+\noindent \textbf{Objective function \cite{witten2010framework}.} 
+	
+\begin{align}\nonumber
+\CJ_{skmeans} =& \sum_{i=1}^{n}\sum_{j=1}^{p} w_{j}(x_{ij}-{\mu}_{1j})^2 - \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k}\sum_{j=1}^{p} w_{j}(x_{ij}-m_{kj})^2  \Rightarrow\\ \label{skmeansopt2}
+\CJ_{skmeans} =&  \sum_{j=1}^{p} w_{j}\gamma_j \hphantom{x}\text{, with}\hphantom{x} 	\gamma_j = \sum_{i=1}^{n} (x_{ij}-{\mu}_{1j})^2 - \sum_{k=1}^{K}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k}(x_{ij}-m_{kj})^2\\
+\nonumber
+\text{subject to}& \hphantom{xxxxx} \sum_{j=1}^{p} w_{j}^{2} \leq 1 \text{,}\hphantom{x} \sum_{j=1}^{p} \abs{w_{j}} \leq s \text{,}\hphantom{x} w_{j} \geq 0\hphantom{x} \forall j 
+\end{align}	
+
+\noindent \textbf{Weights optimization.} 
+
+\begin{align}\nonumber
+\underset{w_j}{maximize}& \bigg\{ \sum_{j=1}^{p} w_{j}\gamma_j \bigg\} \hphantom{x,}
+\text{subject to} \hphantom{xxx} \sum_{j=1}^{p} w_{j}^{2} \leq 1 \text{,}\hphantom{x} \sum_{j=1}^{p} \abs{w_{j}} \leq s \text{,}\hphantom{x} w_{j} \geq 0\hphantom{x} \forall j \Rightarrow
+\end{align}	
+
+\begin{align}\label{skmeansopt3}
+w_{j} = \frac{sign(\gamma_{j})(\vphantom{x} \abs{\gamma_{j}}-\Delta)_{+}}{
+	\sqrt{\sum_{j'=1}^{p}\big{(}sign(\gamma_{j'})(\vphantom{x} \abs{\gamma_{j'}}-\Delta)\big{)}^2}
+}
+\end{align}	
+
+\noindent where $x_+ = \mathcal{H}(x)\cdot x$, $\mathcal{H}$ is the Heaviside function and $x \in \mathbb{R}$. We assume that $\gamma_j$ has a unique maximum and that $1 \leq s \leq \sqrt{p}$.
+
+\begin{center}
+	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+		\noindent\textbf{Sparse K-Means algorithm \cite{witten2010framework}}
+		\begin{enumerate}
+			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method and the feature weights as $w_{1} = \dots = w_{p} = \frac{1}{\sqrt{p}}$.
+			\item Holding the weights fixed, maximize \ref{skmeansopt2} with respect to $M$. This can be achieved by performing K-Means on the scaled data, i.e. multiply each feature $j$ with $\sqrt{w_j}$.	
+			\item Holding $M$ fixed optimize equation \ref{skmeansopt2} with respect to the weights applying the proposition given in equation \ref{skmeansopt3}. Choose $\Delta = 0$ if that leads to $\sum_{j=1}^{p} \abs{w_{j}} \leq s$, otherwise find $\Delta > 0$ that results in $\sum_{j=1}^{p} \abs{w_{j}} = s$. To find $\Delta$ the Bisection algorithm can be used.
+			\item Go to step 2 until the convergence criterion in equation \ref{skmeanconv}
+			\begin{align}\label{skmeanconv}
+			\frac{ \sum_{j=1}^{p}\abs{w_{j}^{r}-w_{j}^{r-1}} }{ w_{j}^{r-1} } < 10^{-4} \hphantom{x}\text{, if}\hphantom{x}r > 1
+			\end{align}	
+			where $r$ refers to the current iteration, and $w_{j}^{r-1}$ to the weights of the previous iteration.
+		\end{enumerate}	
+		The algorithm returns the final clusters (centroids and elements) and the weight of each feature.		
+		
+		\vspace{1.0cm}
+		
+		\noindent\textbf{Bisection algorithm}
+		\begin{enumerate}
+			\item Assume $lim_1 < \Delta < lim_2$, $lim_1 = 0$ and $lim_2 = max(\gamma_1,...,\gamma_p)$
+			
+			\item Compute $\Delta = \frac{lim_1+lim_2}{2}$ and set
+			\begin{align}\nonumber
+			\begin{Bmatrix}
+			lim_2 = \Delta
+			&,\hphantom{x  } \text{if} \hphantom{x } \sum_{j=1}^{p} \abs{w_{j}} < s \\
+			lim_1 = \Delta
+			&,\hphantom{x  } \text{if} \hphantom{x } \sum_{j=1}^{p} \abs{w_{j}} \geq s
+			\end{Bmatrix}
+			\end{align}	
+			
+			\item If $lim_2-lim_1 \geq 10^{-4}$ go to step 2.
+		\end{enumerate}
+	\end{tcolorbox}
+\end{center}
+
+%\begin{align}\label{pckmeans}
+%\CJ_{pckm} &= \sum_{k=1}^{K}  \sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} \bigg( \sum_{j=1}^{p} (x_{ij}-m_{kj})^2 + 
+%\nonumber\\&
+%\sum_{(x_{i:})ML(x_{i':})} \sum_{j=1}^{p} %b_{x_i,x_{i'}} (x_{ij}-x_{i'j})^2 \hphantom{x}\mathbbm{1} \big[(x_{i:})\cancel{ML}(x_{i':})\big] + 
+%\nonumber\\&
+%\sum_{(x_{i:})CL(x_{i':})} \sum_{j=1}^{p} \bar{b}_{x_i,x_{i'}} \big((x_{Ij}-x_{I'j})^2 - (x_{ij}-x_{i'j})^2\big) \hphantom{x}\mathbbm{1} \big[(x_{i:})\cancel{CL}(x_{i':})\big] \bigg)
+%\end{align}	
 	
 
-\cleardoublepage	
+\cleardoublepage
+\section*{Publications \& Online Material}
+\begin{itemize}
+	\item \cite{vouros2019empirical}
+	\item \cite{vouros2020semi}
+\end{itemize}	
 \bibliography{references}	
 \end{document}
 
