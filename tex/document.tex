@@ -541,7 +541,7 @@ w_{j} = \frac{sign(\gamma_{j})(\vphantom{x} \abs{\gamma_{j}}-\Delta)_{+}}{
 
 \begin{center}
 	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
-		\noindent\textbf{Sparse K-Means algorithm \cite{witten2010framework}}
+		\noindent\textbf{Sparse K-Means algorithm}
 		\begin{enumerate}
 			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method and the feature weights as $w_{1} = \dots = w_{p} = \frac{1}{\sqrt{p}}$.
 			\item Holding the weights fixed, maximize \ref{skmeansopt2} with respect to $M$. This can be achieved by performing K-Means on the scaled data, i.e. multiply each feature $j$ with $\sqrt{w_j}$.	
