@@ -279,11 +279,48 @@ WCSS =
 \cleardoublepage
 
 
-\begin{center}
+%\begin{center}
+%	\setlength\abovedisplayskip{0pt}
+%	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
+%		\noindent\textbf{Hartigan-Wong's K-Means algorithm}
+%		\begin{enumerate}
+%			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
+%			
+%			\item Assign each data point to cluster $k'$ so that,
+%			\begin{align}\nonumber
+%			k' &= \underset{k}{argmin}\bigg\{ \sum_{j=1}^{p} (x_{ij}-m_{kj})^2    \bigg\}
+%			\end{align}	
+%			
+%			\item Recompute the cluster centroids,
+%			\begin{align}\nonumber
+%				m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
+%			\end{align}	
+%			
+%			\item Set an indicator $s=0$.		
+%			
+%			\item For each data point $x_{i:}$:
+%			
+%			\begin{enumerate}
+%				\item Remove it from its cluster $c_{k'}$ and compute $WCSS_{k'}$. Set $ WCSS_{min} = WCSS_{k'}$.
+%				\item For each cluster $c_{t} \neq c_{k'}$, $t = 1,\cdots, K$
+%				\begin{enumerate}
+%					\item Assign it to $c_{t}$ and compute $WCSS_{t}$
+%					\item If $WCSS_{t} < WCSS_{min}$, $WCSS_{min}=WCSS_{t}$ and assign $x_{i:}$ to cluster $c_{t}$.
+%				\end{enumerate}
+%				\item If $WCSS_{min} \neq WCSS_{k'}$, set $s=1$ and update $m_{k':}$ and $m_{min:}$. Else $WCSS_{min} = WCSS_{k'}$ assign $x_{i:}$ to its original cluster $c_{k'}$. 
+%			\end{enumerate}	
+%			
+%			\item If $s=1$, set $s=0$ and go to step 5 else terminate
+%			
+%		\end{enumerate}	
+%		The algorithm returns the final clusters (centroids and element assignments).
+%	\end{tcolorbox}
+%\end{center}
+	\begin{center}
 	\setlength\abovedisplayskip{0pt}
 	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
 		\noindent\textbf{Hartigan-Wong's K-Means algorithm}
-		\begin{enumerate}
+		\begin{enumerate}[noitemsep,nolistsep]
 			\item Initialise $K$ initial centroids $M = \{m_{1j}, \dots, m_{Kj}\}$ using some initialisation method. 
 			
 			\item Assign each data point to cluster $k'$ so that,
@@ -293,29 +330,34 @@ WCSS =
 			
 			\item Recompute the cluster centroids,
 			\begin{align}\nonumber
-				m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
+			m_{kj} = \frac{1}{n_k}\sum_{\binom{i=1}{x_{i:} \in c_k}}^{n_k} x_{ij}
 			\end{align}	
 			
 			\item Set an indicator $s=0$.		
 			
-			\item For each data point $x_{i:}$:
+			\item For each data point $x_{i':}$:
 			
 			\begin{enumerate}
-				\item Remove it from its cluster $c_{k'}$ and compute $WCSS_{k'}$. Set $ WCSS_{min} = WCSS_{k'}$.
-				\item For each cluster $c_{t} \neq c_{k'}$, $t = 1,\cdots, K$
+				\item Remove it from its cluster $c_{k'}$ and compute the within cluster sum of squares of $c_{k'}$,
+				\begin{align}\label{wcssk}
+				wcss_{k'} = \sum_{\binom{i=1}{x_{i:} \in c_{k'}}}^{n_{k'}}\sum_{j=1}^{p} (x_{ij}-m_{k'j})^2
+				\end{align}	
+				
+				\item For each cluster $c_{t}$ where $t = 1,\cdots, K$ and $t \neq k'$:
+				
 				\begin{enumerate}
-					\item Assign it to $c_{t}$ and compute $WCSS_{t}$
-					\item If $WCSS_{t} < WCSS_{min}$, $WCSS_{min}=WCSS_{t}$ and assign $x_{i:}$ to cluster $c_{t}$.
+					\item Temporarily assign $x_{i':}$ to $c_{t}$ and compute the $wcss_{t}$ using equation \ref{wcssk} replacing $k'$ with $t$.
+					\item If $wcss_{t} < wcss_{k'}$ set $s=t$ and $wcss_{k'} = wcss_{t}$.
 				\end{enumerate}
-				\item If $WCSS_{min} \neq WCSS_{k'}$, set $s=1$ and update $m_{k':}$ and $m_{min:}$. Else $WCSS_{min} = WCSS_{k'}$ assign $x_{i:}$ to its original cluster $c_{k'}$. 
-			\end{enumerate}	
+				
+				\item If $s > 0$, assign $x_{i':}$ to cluster $c_s$, update the centroids $m_{k':}$ and $m_{s:}$, and set $s = -1$. Else assign $x_{i':}$ to its original cluster $c_{k'}$.
+			\end{enumerate}
 			
-			\item If $s=1$, set $s=0$ and go to step 5 else terminate
-			
+			\item If $s \neq 0$, go to step 4. Else terminate.
 		\end{enumerate}	
 		The algorithm returns the final clusters (centroids and element assignments).
 	\end{tcolorbox}
-\end{center}
+\end{center}	
 
 \begin{center}
 	\begin{tcolorbox}[breakable,colback=white!100!white,colframe=black!100!black]
@@ -583,6 +625,7 @@ w_{j} = \frac{sign(\gamma_{j})(\vphantom{x} \abs{\gamma_{j}}-\Delta)_{+}}{
 %\sum_{(x_{i:})CL(x_{i':})} \sum_{j=1}^{p} \bar{b}_{x_i,x_{i'}} \big((x_{Ij}-x_{I'j})^2 - (x_{ij}-x_{i'j})^2\big) \hphantom{x}\mathbbm{1} \big[(x_{i:})\cancel{CL}(x_{i':})\big] \bigg)
 %\end{align}	
 	
+
 
 \cleardoublepage
 \section*{Publications \& Online Material}
